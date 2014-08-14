@@ -133,7 +133,7 @@
             <field name="model">gii.fee</field>
             <field name="arch" type="xml">
                 <form string="fees">                    
-                  <field  name="name"/>
+                  <field name="name" on_change="onchange_service(name)"/>
                   <field  name="gii_eventtype"/>
                   <field  name="gii_hrs"/>
                   <field  name="gii_city"/>

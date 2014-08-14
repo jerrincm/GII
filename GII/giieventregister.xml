@@ -17,6 +17,7 @@
                         	<field name="gii_event_award"/>
                         	<field name="gii_certificate_issue"/>
                         	<field name="gii_register_events"/>
+                        	<field name="gii_location_event"/>
                    </field>
                    
                 </field>

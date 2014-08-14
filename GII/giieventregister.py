@@ -13,8 +13,20 @@ class giieventregistration(osv.osv):
             'gii_event_award': fields.selection([('yes', 'Y'),('no','N')],'Award Completed'),
             'gii_certificate_issue':fields.date('Certificate Issue Date', size=64, required=False, readonly=False),
             'gii_register_events':fields.text('Remarks', size=64, required=False, readonly=False),
-            'produce': fields.related('gii_traineeregister_id','name', type='many2one', relation='trainee', string='Name1')
+            'gii_location_event':fields.many2one('gii.location', 'Location', ondelete='set null',select=True)
             
             
         }
 giieventregistration()
+
+
+
+class giilocation(osv.osv):
+ 
+    _name = 'gii.location'
+    _description = 'gii.location'
+ 
+    _columns = {
+            'name':fields.char('Location', size=64, required=False, readonly=False)
+        }
+giilocation()

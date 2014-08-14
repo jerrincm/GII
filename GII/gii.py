@@ -27,8 +27,8 @@ class inherits(osv.osv):
          'gii_coursetutors_id':fields.one2many('gii.coursetutors','product_id','Course Tutors'),
          'gii_assmnt_id':fields.many2one('gii.assessment','Assesment Type', ondelete='set null'),
          'gii_target_id':fields.many2one('gii.target','Target Audience', ondelete='set null'),
-         'gii_awardingbody_id':fields.many2one('test','Awarding Body',required=True, ondelete='set null'),
-         'gii_qualification_id':fields.many2one('gii.qualification','Qualification',required=True, ondelete='set null')                    
+         'gii_awardingbody_id':fields.many2one('test','Awarding Body',required=False, ondelete='set null'),
+         'gii_qualification_id':fields.many2one('gii.qualification','Qualification',required=False, ondelete='set null')                    
              }
 inherits()
 
@@ -76,13 +76,26 @@ class fees(osv.osv):
     _name = 'gii.fee'
     _description = 'gii.fee'
  
+    def onchange_service(self, cr, uid, ids,name ):
+       partner = self.pool.get('service')
+       if not name:
+           return {'value': {
+               'gii_feee': False,
+               
+               }}
+       #supplier_address = partner.address_get(cr, uid, [partner_id], ['default'])
+       servicetype = partner.browse(cr, uid, name)
+       return {'value': {
+           'gii_feee': servicetype.amount,
+           
+           }}
     _columns = {
             'name':fields.many2one('service', 'Service Type', ondelete='set null',select=True),
             'gii_eventtype':fields.many2one('event.type', 'Event Type', ondelete='set null',select=True),
             'gii_hrs':fields.float('Hours', size=64, required=False, readonly=False),
             'gii_city':fields.many2one('city', 'City', ondelete='set null',select=True),
             'gii_curr':fields.many2one('res.currency','Currency',ondelete='set null'),
-            'gii_feee':fields.float('Fee', size=64, required=False, readonly=False),
+            'gii_feee':fields.integer('Fee', size=64, required=False, readonly=False),
             'gii_gd': fields.selection([('yes', 'Y'),('no','N')],'Group Discounts'),
             'gii_bd': fields.selection([('yes', 'Y'),('no','N')],'Bundling Discounts'),
             'gii_md':fields.float('Membership Discount', size=64, required=False, readonly=False),
