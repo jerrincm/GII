@@ -2,7 +2,7 @@
 <openerp>
     <data>
     
-            
+            <newtag > test </newtag>
             <record model="ir.ui.view" id="test_tree_view">
                 <field name="name">test.tree</field>
                 <field name="model">test</field>
